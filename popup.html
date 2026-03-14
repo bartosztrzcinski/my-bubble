@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Bubble</title>
+    <style>
+      body {
+        width: 300px;
+        padding: 16px;
+        font-family: sans-serif;
+        background: #f9f9f9;
+      }
+
+      h1 {
+        font-size: 18px;
+        margin-bottom: 4px;
+        color: #2c2c2c;
+      }
+
+      p {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 16px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #444;
+      }
+
+      select {
+        margin-top: 4px;
+        width: 100%;
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+      }
+
+      button {
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px;
+        background: #6c63ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #574fd6;
+      }
+
+      #addSiteBtn {
+        background: #34c759;
+      }
+
+      #addSiteBtn:hover {
+        background: #28a745;
+      }
+
+      #status {
+        margin-top: 8px;
+        font-size: 12px;
+        color: green;
+        text-align: center;
+      }
+
+      #siteList {
+        margin-top: 16px;
+      }
+
+      #siteList h2 {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 8px;
+      }
+
+      .site-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        padding: 6px 10px;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #ff3b30;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        width: auto;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🫧 My Bubble</h1>
+    <p>Protect your feed from negative news</p>
+
+    <label>
+      When negative news is detected:
+      <select id="filterMode">
+        <option value="hide">Hide it completely</option>
+        <option value="blur">Blur it</option>
+        <option value="warn">Show a warning</option>
+      </select>
+    </label>
+
+    <button id="saveBtn">Save Setting</button>
+    <button id="addSiteBtn">+ Add Current Site</button>
+
+    <div id="status"></div>
+
+    <div id="siteList">
+      <h2>MY PROTECTED SITES</h2>
+      <div id="sites"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
