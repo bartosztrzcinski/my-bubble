@@ -26,7 +26,7 @@ function findArticleContainer(element) {
   let current = element.parentElement;
   let steps = 0;
 
-  while (current && steps < 10) {
+  while (current && steps < 15) {
     const tag = current.tagName.toLowerCase();
     const classes = current.className || "";
     const testId = current.dataset.testid || "";
@@ -38,12 +38,15 @@ if (testId === "dundee-card") return current;
 if (testId === "dundee-article") return current;
 // ⚠️ card-text-wrapper is last resort — only if nothing better found above
 
-    // ✅ CNN
-    if (
-      classes.includes("container__item") ||
-      classes.includes("card--media") ||
-      classes.includes("container_vertical-strip__item")
-    ) return current;
+    // ✅ CNN — spotlight package (hero block with title + image)
+if (classes.includes("container_spotlight-package") && !classes.includes("__")) return current;
+
+// ✅ CNN — regular cards
+if (
+  classes.includes("container__item") ||
+  classes.includes("card--media") ||
+  classes.includes("container_vertical-strip__item")
+) return current;
 
     // ✅ Generic fallback — but guard against huge containers
     const height = current.getBoundingClientRect().height;
@@ -133,7 +136,7 @@ function applyFilter(element, mode) {
 
 // Main function - scans the page for headlines and filters them
 function scanHeadlines(mode) {
-  const headlineSelectors = "h1, h2, h3, h4";
+  const headlineSelectors = "h1, h2, h3, h4, .container__headline-text, .container__title_url-text";
   const elements = document.querySelectorAll(headlineSelectors);
 
   elements.forEach(element => {
