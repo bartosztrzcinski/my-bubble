@@ -56,15 +56,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 🆕 Load saved API key and show it masked in the input
+  chrome.storage.sync.get("hfApiKey", (data) => {
+    if (data.hfApiKey) {
+      document.getElementById("apiKey").value = data.hfApiKey;
+    }
+  });
+
   // Load and display saved sites
   chrome.storage.sync.get("sites", (data) => {
     renderSites(data.sites || []);
   });
 
-  // Save filter mode when Save button is clicked
+  // Save filter mode AND API key when Save button is clicked
   document.getElementById("saveBtn").addEventListener("click", () => {
     const mode = document.getElementById("filterMode").value;
-    chrome.storage.sync.set({ filterMode: mode }, () => {
+    const apiKey = document.getElementById("apiKey").value.trim();
+
+    // Validate API key format
+    if (apiKey && !apiKey.startsWith("hf_")) {
+      showStatus("⚠️ API key should start with hf_", "orange");
+      return;
+    }
+
+    chrome.storage.sync.set({ filterMode: mode, hfApiKey: apiKey }, () => {
       showStatus("✅ Saved!");
     });
   });
@@ -73,12 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("addSiteBtn").addEventListener("click", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const url = new URL(tabs[0].url);
-      const hostname = url.hostname; // e.g. "edition.cnn.com"
+      const hostname = url.hostname;
 
       chrome.storage.sync.get("sites", (data) => {
         const sites = data.sites || [];
 
-        // Don't add duplicates
         if (sites.includes(hostname)) {
           showStatus("Already in your list!", "orange");
           return;

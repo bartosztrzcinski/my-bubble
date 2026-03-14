@@ -39,6 +39,17 @@
         font-size: 14px;
       }
 
+      input[type="password"],
+      input[type="text"] {
+        margin-top: 4px;
+        width: 100%;
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
+
       button {
         margin-top: 10px;
         width: 100%;
@@ -103,6 +114,23 @@
         width: auto;
         margin-top: 0;
       }
+
+      .api-hint {
+        font-size: 11px;
+        color: #aaa;
+        margin-top: 4px;
+      }
+
+      .api-hint a {
+        color: #6c63ff;
+        text-decoration: none;
+      }
+
+      .section-divider {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 16px 0;
+      }
     </style>
   </head>
   <body>
@@ -118,7 +146,18 @@
       </select>
     </label>
 
-    <button id="saveBtn">Save Setting</button>
+    <hr class="section-divider" />
+
+    <label>
+      HuggingFace API Key:
+      <input type="password" id="apiKey" placeholder="hf_xxxxxxxxxxxxxxxx" />
+    </label>
+    <p class="api-hint">
+      Free key at <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co</a>. 
+      Used for AI sentiment analysis.
+    </p>
+
+    <button id="saveBtn">Save Settings</button>
     <button id="addSiteBtn">+ Add Current Site</button>
 
     <div id="status"></div>
